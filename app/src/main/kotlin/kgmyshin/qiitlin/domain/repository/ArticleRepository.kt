@@ -8,6 +8,6 @@ import java.util.ArrayList
  */
 public trait ArticleRepository {
 
-    fun findAll() : ArrayList<Article>
+    fun findAll(page:Int) : ArrayList<Article>
 
 }

@@ -71,4 +71,7 @@ dependencies {
     // test
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+
+    // EventBus
+    compile 'de.greenrobot:eventbus:2.4.0'
 }

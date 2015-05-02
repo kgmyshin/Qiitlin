@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import kgmyshin.qiitlin.domain.DomainModule;
 import kgmyshin.qiitlin.infra.InfraModule;
+import kgmyshin.qiitlin.presentation.PresentationComponent;
 
 /**
  * Created by kgmyshin on 2015/05/02.
@@ -14,13 +15,10 @@ import kgmyshin.qiitlin.infra.InfraModule;
 @Singleton
 @Component(
         modules = {
-                AppModule.class,
+                InfraModule.class,
                 DomainModule.class,
-                InfraModule.class
+                AppModule.class
         }
 )
-public interface AppComponent {
-
-    void inject(Application instance);
-
+public interface AppComponent extends PresentationComponent {
 }

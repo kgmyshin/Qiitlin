@@ -9,7 +9,7 @@ import java.util.ArrayList
  */
 public class ArticleRepositoryImpl : ArticleRepository {
 
-    override fun findAll(): ArrayList<Article> {
+    override fun findAll(page: Int): ArrayList<Article> {
         throw UnsupportedOperationException()
     }
 

@@ -2,9 +2,6 @@ package kgmyshin.qiitlin;
 
 import android.app.Application;
 
-import kgmyshin.qiitlin.AppComponent;
-import kgmyshin.qiitlin.AppModule;
-import kgmyshin.qiitlin.DaggerAppComponent;
 import kgmyshin.qiitlin.domain.DomainModule;
 import kgmyshin.qiitlin.infra.InfraModule;
 
@@ -18,7 +15,6 @@ public abstract class BaseApplication extends Application {
                 .builder()
                 .appModule(new AppModule(this))
                 .domainModule(new DomainModule())
-                .infraModule(new InfraModule())
                 .infraModule(new InfraModule())
                 .build();
     }

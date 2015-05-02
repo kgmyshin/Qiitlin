@@ -22,26 +22,26 @@ public class InfraModule {
 
     @Provides
     @Singleton
-    public ArticleRepository provideAritcleRepository(ArticleRepositoryImpl repository) {
-        return repository;
+    public ArticleRepository provideArticleRepository() {
+        return new ArticleRepositoryImpl();
     }
 
     @Provides
     @Singleton
-    public CommentRepository provideCommentRepository(CommentRepositoryImpl repository) {
-        return repository;
+    public CommentRepository provideCommentRepository() {
+        return new CommentRepositoryImpl();
     }
 
     @Provides
     @Singleton
-    public TagRepository provideTagRepository(TagRepositoryImpl repository) {
-        return repository;
+    public TagRepository provideTagRepository() {
+        return new TagRepositoryImpl();
     }
 
     @Provides
     @Singleton
-    public UserRepository provideUserRepository(UserRepositoryImpl repository) {
-        return repository;
+    public UserRepository provideUserRepository() {
+        return new UserRepositoryImpl();
     }
 
 }
