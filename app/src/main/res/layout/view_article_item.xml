@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/user_image_view"
+        android:layout_width="@dimen/three_line_list_item_avatar_height"
+        android:layout_height="@dimen/three_line_list_item_avatar_height"
+        android:layout_marginLeft="@dimen/three_line_list_item_avatar_margin_left"
+        android:layout_marginTop="@dimen/three_line_list_item_text_margin_top"
+        />
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/three_line_list_item_text_margin_left"
+        android:layout_marginTop="@dimen/three_line_list_item_text_margin_top"
+        android:layout_marginRight="@dimen/three_line_list_item_text_margin_right"
+        android:textSize="@dimen/three_line_list_item_primary_font_size"
+        />
+
+    <TextView
+        android:id="@+id/tags_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/three_line_list_item_above_list_space"
+        android:layout_marginLeft="@dimen/three_line_list_item_text_margin_left"
+        android:layout_marginRight="@dimen/three_line_list_item_text_margin_right"
+        android:textSize="@dimen/three_line_list_item_font_size"
+        android:layout_below="@+id/title_text_view"
+        />
+
+    <TextView
+        android:id="@+id/time_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/three_line_list_item_above_list_space"
+        android:layout_marginLeft="@dimen/three_line_list_item_text_margin_left"
+        android:layout_marginRight="@dimen/three_line_list_item_text_margin_right"
+        android:layout_marginBottom="@dimen/three_line_list_item_text_margin_bottom"
+        android:textSize="@dimen/three_line_list_item_font_size"
+        android:layout_below="@+id/tags_text_view"
+        />
+
+</RelativeLayout>

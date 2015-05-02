@@ -1,6 +1,7 @@
 package kgmyshin.qiitlin.infra.api.v2
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import retrofit.RestAdapter
 import retrofit.converter.GsonConverter
 
@@ -14,7 +15,8 @@ public class ApiClient {
     }
 
     protected fun getService<T>(cls: java.lang.Class<T>) : T {
-        val restAdapter = RestAdapter.Builder().setEndpoint(BASE_URL).setConverter(GsonConverter(Gson())).build()
+        val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+        val restAdapter = RestAdapter.Builder().setEndpoint(BASE_URL).setConverter(GsonConverter(gson)).build()
         return restAdapter.create(cls)
     }
 

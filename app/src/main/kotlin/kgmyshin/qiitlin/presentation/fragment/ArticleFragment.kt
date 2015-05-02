@@ -1,6 +1,7 @@
 package kgmyshin.qiitlin.presentation.fragment
 
 import android.app.Fragment
+import kgmyshin.qiitlin.presentation.presenter.ArticlesPresenter
 import kotlin.platform.platformStatic
 
 /**

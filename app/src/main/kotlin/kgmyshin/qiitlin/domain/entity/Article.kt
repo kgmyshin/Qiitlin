@@ -2,6 +2,7 @@ package kgmyshin.qiitlin.domain.entity
 
 import com.google.gson.annotations.SerializedName
 import java.util.ArrayList
+import java.util.Date
 
 /**
  * Created by kgmyshin on 2015/05/02.
@@ -13,5 +14,6 @@ data public class Article(
         val tags: ArrayList<Tag>,
         val title:String,
         val url:String,
-        val user:User
+        val user:User,
+        [SerializedName("created_at")] val createdAt: Date
 )

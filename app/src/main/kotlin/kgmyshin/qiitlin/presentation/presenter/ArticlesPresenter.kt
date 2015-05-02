@@ -22,6 +22,7 @@ public class ArticlesPresenter(
 
     override fun onResume() {
         EventBus.getDefault().register(this)
+        getArticlesUseCase?.execute(0)
     }
 
     override fun onPause() {
@@ -29,6 +30,6 @@ public class ArticlesPresenter(
     }
 
     fun onEventMainThread(event: GetArticlesUseCase.OnGot) {
-
+        articlesFragment.initAdapter(event.aritlces)
     }
 }
