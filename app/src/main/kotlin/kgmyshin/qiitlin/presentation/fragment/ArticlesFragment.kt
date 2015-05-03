@@ -55,6 +55,7 @@ public class ArticlesFragment : Fragment() {
             override fun onScrollStateChanged(absListView:AbsListView, i:Int) {
             }
         })
+        swipeRefreshLayout.setColorSchemeResources(R.color.blue_500, R.color.yellow_500, R.color.red_500);
         swipeRefreshLayout.setOnRefreshListener {articlePresenter?.onRefresh()}
     }
 
