@@ -23,7 +23,6 @@ public class ArticlesFragment : Fragment() {
 
     val listView: ListView by bindView(R.id.article_list_view)
     var adapter : ArticleAdapter? = null
-    var inited = false
 
     var articlePresenter : ArticlesPresenter? = null
 
@@ -41,21 +40,23 @@ public class ArticlesFragment : Fragment() {
         return view
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        adapter = ArticleAdapter(getActivity())
+        listView.setAdapter(adapter)
+        listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+            override fun onScroll(absListView:AbsListView, firstVisibleItem:Int, visibleItemCount:Int, totalItemCount:Int) {
+                if (totalItemCount != 0 && totalItemCount == firstVisibleItem + visibleItemCount) {
+                    articlePresenter?.onListBottom()
+                }
+            }
+            override fun onScrollStateChanged(absListView:AbsListView, i:Int) {
+            }
+        })
+    }
+
     override fun onResume() {
         super.onResume()
-        if (!inited) {
-            adapter = ArticleAdapter(getActivity())
-            listView.setAdapter(adapter)
-            listView.setOnScrollListener(object : AbsListView.OnScrollListener {
-                override fun onScroll(absListView:AbsListView, firstVisibleItem:Int, visibleItemCount:Int, totalItemCount:Int) {
-                    if (totalItemCount != 0 && totalItemCount == firstVisibleItem + visibleItemCount) {
-                        articlePresenter?.onListBottom()
-                    }
-                }
-                override fun onScrollStateChanged(absListView:AbsListView, i:Int) {
-                }
-            })
-        }
         articlePresenter?.onResume()
     }
 
