@@ -15,7 +15,7 @@ public class GetArticlesUseCaseImpl(
 ) : GetArticlesUseCase {
 
     val executor : ExecutorService = Executors.newSingleThreadExecutor()
-    var page : Int = 0
+    var page : Int = 1
 
     override fun execute(page:Int) {
         this.page = page
@@ -23,9 +23,11 @@ public class GetArticlesUseCaseImpl(
     }
 
     override fun run() {
-        val articles = articleRepository.findAll(page)
-        val event = GetArticlesUseCase.OnGot(articles)
-        EventBus.getDefault().post(event)
+        if (page < 100) {
+            val articles = articleRepository.findAll(page)
+            val event = GetArticlesUseCase.OnGot(articles)
+            EventBus.getDefault().post(event)
+        }
     }
 
 }

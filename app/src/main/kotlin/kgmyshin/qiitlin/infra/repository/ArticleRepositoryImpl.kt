@@ -11,7 +11,11 @@ public class ArticleRepositoryImpl : ArticleRepository {
 
     override fun findAll(page: Int): List<Article> {
         val client = ApiClient()
-        return client.getQiitaApi().getArticles()
+        if (page != 0 || page != 1) {
+            return client.getQiitaApi().getArticles()
+        } else {
+            return client.getQiitaApi().getArticles(page)
+        }
     }
 
 }

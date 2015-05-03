@@ -13,6 +13,8 @@ public class ArticlesPresenter(
         val articlesFragment : ArticlesFragment
 ) : Presenter {
 
+    var next_page = 1
+
     var getArticlesUseCase : GetArticlesUseCase? = null
     [Inject] set
 
@@ -22,14 +24,23 @@ public class ArticlesPresenter(
 
     override fun onResume() {
         EventBus.getDefault().register(this)
-        getArticlesUseCase?.execute(0)
+        fetchArticles()
     }
 
     override fun onPause() {
         EventBus.getDefault().unregister(this)
     }
 
+    fun fetchArticles() {
+        getArticlesUseCase?.execute(next_page)
+    }
+
+    public fun onListBottom() {
+        fetchArticles()
+    }
+
     fun onEventMainThread(event: GetArticlesUseCase.OnGot) {
         articlesFragment.initAdapter(event.aritlces)
+        next_page++
     }
 }

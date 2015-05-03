@@ -3,9 +3,11 @@ package kgmyshin.qiitlin.presentation.fragment
 import android.app.Activity
 import android.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.ListView
 import butterknife.bindView
 import kgmyshin.qiitlin.R
@@ -20,6 +22,8 @@ import kotlin.platform.platformStatic
 public class ArticlesFragment : Fragment() {
 
     val listView: ListView by bindView(R.id.article_list_view)
+    var adapter : ArticleAdapter? = null
+    var inited = false
 
     var articlePresenter : ArticlesPresenter? = null
 
@@ -39,6 +43,19 @@ public class ArticlesFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        if (!inited) {
+            adapter = ArticleAdapter(getActivity())
+            listView.setAdapter(adapter)
+            listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+                override fun onScroll(absListView:AbsListView, firstVisibleItem:Int, visibleItemCount:Int, totalItemCount:Int) {
+                    if (totalItemCount != 0 && totalItemCount == firstVisibleItem + visibleItemCount) {
+                        articlePresenter?.onListBottom()
+                    }
+                }
+                override fun onScrollStateChanged(absListView:AbsListView, i:Int) {
+                }
+            })
+        }
         articlePresenter?.onResume()
     }
 
@@ -48,9 +65,8 @@ public class ArticlesFragment : Fragment() {
     }
 
     public fun initAdapter(articles:List<Article>) {
-        val adapter = ArticleAdapter(getActivity())
-        adapter.addAll(articles)
-        listView.setAdapter(adapter)
+        adapter?.addAll(articles)
+        adapter?.notifyDataSetChanged()
     }
 
 }

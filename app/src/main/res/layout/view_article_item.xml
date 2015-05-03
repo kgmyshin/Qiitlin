@@ -43,7 +43,7 @@
         android:layout_marginLeft="@dimen/three_line_list_item_text_margin_left"
         android:layout_marginRight="@dimen/three_line_list_item_text_margin_right"
         android:layout_marginBottom="@dimen/three_line_list_item_text_margin_bottom"
-        android:textSize="@dimen/three_line_list_item_font_size"
+        android:textSize="@dimen/three_line_list_item_small_font_size"
         android:layout_below="@+id/tags_text_view"
         />
 
