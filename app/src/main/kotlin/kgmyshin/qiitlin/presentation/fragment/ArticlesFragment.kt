@@ -4,13 +4,20 @@ import android.app.Activity
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.FrameLayout
 import android.widget.ListView
+import android.widget.RelativeLayout
 import butterknife.bindView
+import com.nineoldandroids.animation
+import com.nineoldandroids.animation.Animator
+import com.nineoldandroids.animation.ValueAnimator
+import com.nineoldandroids.view.ViewHelper
 import kgmyshin.qiitlin.R
 import kgmyshin.qiitlin.domain.entity.Article
 import kgmyshin.qiitlin.presentation.adapter.ArticleAdapter
@@ -22,14 +29,17 @@ import kotlin.platform.platformStatic
  */
 public class ArticlesFragment : Fragment() {
 
+    val toolbar: Toolbar by bindView(R.id.toolbar)
     val listView: ListView by bindView(R.id.article_list_view)
     val swipeRefreshLayout: SwipeRefreshLayout by bindView(R.id.swipe_refresh)
-    var adapter : ArticleAdapter? = null
 
-    var articlePresenter : ArticlesPresenter? = null
+    var adapter: ArticleAdapter? = null
+    var toolbarVisiblity = true
 
-    companion object  {
-        platformStatic fun newInstance(): Fragment =  ArticlesFragment()
+    var articlePresenter: ArticlesPresenter? = null
+
+    companion object {
+        platformStatic fun newInstance(): Fragment = ArticlesFragment()
     }
 
     override fun onAttach(activity: Activity?) {
@@ -44,19 +54,37 @@ public class ArticlesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        toolbar.setTitle(R.string.app_name)
+        //        toolbar.setNavigationIcon(...)
+        //        toolbar.setNavigationOnClickListener {...}
+        //        toolbar.inflateMenu(R.menu...)
+        //        toolbar.setOnMenuItemClickListener {...}
+
         adapter = ArticleAdapter(getActivity())
         listView.setAdapter(adapter)
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
-            override fun onScroll(absListView:AbsListView, firstVisibleItem:Int, visibleItemCount:Int, totalItemCount:Int) {
+            var lastPos = 0
+            override fun onScroll(absListView: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
                 if (totalItemCount != 0 && totalItemCount == firstVisibleItem + visibleItemCount) {
                     articlePresenter?.onListBottom()
                 }
+                if (lastPos > firstVisibleItem) {
+                    if (firstVisibleItem != 0) {
+                        updateToolbarVisibility(ScrollState.Up)
+                    } else {
+                        updateToolbarVisibility(ScrollState.Stop)
+                    }
+                } else if (lastPos < firstVisibleItem) {
+                    updateToolbarVisibility(ScrollState.Down)
+                }
+                lastPos = firstVisibleItem
             }
-            override fun onScrollStateChanged(absListView:AbsListView, i:Int) {
+            override fun onScrollStateChanged(absListView: AbsListView, i: Int) {
             }
         })
         swipeRefreshLayout.setColorSchemeResources(R.color.blue_500, R.color.yellow_500, R.color.red_500);
-        swipeRefreshLayout.setOnRefreshListener {articlePresenter?.onRefresh()}
+        swipeRefreshLayout.setOnRefreshListener { articlePresenter?.onRefresh() }
     }
 
     override fun onResume() {
@@ -69,7 +97,7 @@ public class ArticlesFragment : Fragment() {
         articlePresenter?.onPause()
     }
 
-    public fun update(articles:List<Article>) {
+    public fun update(articles: List<Article>) {
         if (swipeRefreshLayout.isRefreshing()) {
             adapter?.clear()
             swipeRefreshLayout.setRefreshing(false)
@@ -78,4 +106,86 @@ public class ArticlesFragment : Fragment() {
         adapter?.notifyDataSetChanged()
     }
 
+    private fun showToolbar() {
+        toolbarVisiblity = true
+        moveToolbar(0F);
+    }
+
+    private fun hideToolbar() {
+        toolbarVisiblity = false
+        moveToolbar(-toolbar.getHeight().toFloat());
+    }
+
+    private fun moveToolbar(toTranslationY: Float) {
+        if (toolbar.getTranslationY() == toTranslationY) {
+            return
+        }
+        val animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(toolbar), toTranslationY).setDuration(200)
+        animator.addUpdateListener {
+            animation:ValueAnimator ->
+            val translationY = animation.getAnimatedValue() as Float
+            ViewHelper.setTranslationY(toolbar, translationY)
+            ViewHelper.setTranslationY(swipeRefreshLayout, translationY)
+            val lp = swipeRefreshLayout.getLayoutParams() as FrameLayout.LayoutParams
+            lp.height = (-translationY + getScreenHeight() - lp.topMargin).toInt()
+            swipeRefreshLayout.requestLayout()
+        }
+//        animator.addListener(object : animation.Animator.AnimatorListener {
+//            override fun onAnimationEnd(animation: Animator) {
+//                val left = swipeRefreshLayout.getLeft()
+//                val top = toolbar.getHeight() + toTranslationY.toInt()
+//                val right = swipeRefreshLayout.getWidth()
+//                val bottom = getScreenHeight()
+//                swipeRefreshLayout.layout(left, top, right, bottom)
+//                listView.layout(left, top, right, bottom)
+//            }
+//            override fun onAnimationRepeat(animation: Animator) {
+//            }
+//            override fun onAnimationCancel(animation: Animator) {
+//            }
+//            override fun onAnimationStart(animation: Animator) {
+//            }
+//        })
+//        val lp = swipeRefreshLayout.getLayoutParams() as RelativeLayout.LayoutParams
+//        lp.height = (-toTranslationY + getScreenHeight() + lp.topMargin).toInt()
+//        swipeRefreshLayout.setLayoutParams(lp)
+//        swipeRefreshLayout.post {
+//            swipeRefreshLayout.requestLayout()
+//            val lp = swipeRefreshLayout.getLayoutParams() as RelativeLayout.LayoutParams
+//            Log.e("ssheight", "" + lp.height)
+//            Log.e("sstop", "" + swipeRefreshLayout.getTop())
+//        }
+        animator.start()
+
+    }
+
+    private fun getScreenHeight() : Int {
+        val activity = getActivity();
+        if (activity == null) {
+            return 0;
+        }
+        return activity.findViewById(android.R.id.content).getHeight();
+    }
+
+    private fun updateToolbarVisibility(state:ScrollState) {
+        if (state == ScrollState.Up) {
+            if (toolbarVisiblity) {
+                hideToolbar();
+            }
+        } else if (state == ScrollState.Down) {
+            if (!toolbarVisiblity) {
+                showToolbar();
+            }
+        } else if (state == ScrollState.Stop) {
+            if (!toolbarVisiblity) {
+                showToolbar();
+            }
+        }
+    }
+
+    enum class ScrollState {
+        Up
+        Down
+        Stop
+    }
 }
