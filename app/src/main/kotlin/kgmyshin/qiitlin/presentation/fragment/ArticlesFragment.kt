@@ -3,6 +3,7 @@ package kgmyshin.qiitlin.presentation.fragment
 import android.app.Activity
 import android.app.Fragment
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import kotlin.platform.platformStatic
 public class ArticlesFragment : Fragment() {
 
     val listView: ListView by bindView(R.id.article_list_view)
+    val swipeRefreshLayout: SwipeRefreshLayout by bindView(R.id.swipe_refresh)
     var adapter : ArticleAdapter? = null
 
     var articlePresenter : ArticlesPresenter? = null
@@ -53,6 +55,7 @@ public class ArticlesFragment : Fragment() {
             override fun onScrollStateChanged(absListView:AbsListView, i:Int) {
             }
         })
+        swipeRefreshLayout.setOnRefreshListener {articlePresenter?.onRefresh()}
     }
 
     override fun onResume() {
@@ -65,7 +68,11 @@ public class ArticlesFragment : Fragment() {
         articlePresenter?.onPause()
     }
 
-    public fun initAdapter(articles:List<Article>) {
+    public fun update(articles:List<Article>) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            adapter?.clear()
+            swipeRefreshLayout.setRefreshing(false)
+        }
         adapter?.addAll(articles)
         adapter?.notifyDataSetChanged()
     }

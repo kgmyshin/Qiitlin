@@ -31,16 +31,21 @@ public class ArticlesPresenter(
         EventBus.getDefault().unregister(this)
     }
 
-    fun fetchArticles() {
-        getArticlesUseCase?.execute(next_page)
-    }
-
     public fun onListBottom() {
         fetchArticles()
     }
 
+    public fun onRefresh() {
+        next_page = 1
+        fetchArticles()
+    }
+
+    fun fetchArticles() {
+        getArticlesUseCase?.execute(next_page)
+    }
+
     fun onEventMainThread(event: GetArticlesUseCase.OnGot) {
-        articlesFragment.initAdapter(event.aritlces)
+        articlesFragment.update(event.aritlces)
         next_page++
     }
 }
