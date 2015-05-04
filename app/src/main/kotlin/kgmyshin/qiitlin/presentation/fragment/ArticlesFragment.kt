@@ -5,10 +5,14 @@ import android.app.Fragment
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.Toolbar
+import android.transition.Fade
+import android.transition.Slide
+import android.transition.TransitionSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.AbsListView
 import android.widget.FrameLayout
 import android.widget.ListView
@@ -20,6 +24,7 @@ import com.nineoldandroids.animation.ValueAnimator
 import com.nineoldandroids.view.ViewHelper
 import kgmyshin.qiitlin.R
 import kgmyshin.qiitlin.domain.entity.Article
+import kgmyshin.qiitlin.presentation.activity.ArticlesActivity
 import kgmyshin.qiitlin.presentation.adapter.ArticleAdapter
 import kgmyshin.qiitlin.presentation.presenter.ArticlesPresenter
 import kotlin.platform.platformStatic
@@ -35,6 +40,7 @@ public class ArticlesFragment : Fragment() {
 
     var adapter: ArticleAdapter? = null
     var toolbarVisiblity = true
+    var articleActivity: ArticlesActivity? = null
 
     var articlePresenter: ArticlesPresenter? = null
 
@@ -44,7 +50,12 @@ public class ArticlesFragment : Fragment() {
 
     override fun onAttach(activity: Activity?) {
         super.onAttach(activity)
+        articleActivity = activity as ArticlesActivity
         articlePresenter = ArticlesPresenter(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -83,6 +94,7 @@ public class ArticlesFragment : Fragment() {
             override fun onScrollStateChanged(absListView: AbsListView, i: Int) {
             }
         })
+        listView.setOnItemClickListener { (adapterView, view, i, l) ->  articleActivity?.moveArticle(view, adapter!!.getItem(i))  }
         swipeRefreshLayout.setColorSchemeResources(R.color.blue_500, R.color.yellow_500, R.color.red_500);
         swipeRefreshLayout.setOnRefreshListener { articlePresenter?.onRefresh() }
     }
@@ -130,31 +142,6 @@ public class ArticlesFragment : Fragment() {
             lp.height = (-translationY + getScreenHeight() - lp.topMargin).toInt()
             swipeRefreshLayout.requestLayout()
         }
-//        animator.addListener(object : animation.Animator.AnimatorListener {
-//            override fun onAnimationEnd(animation: Animator) {
-//                val left = swipeRefreshLayout.getLeft()
-//                val top = toolbar.getHeight() + toTranslationY.toInt()
-//                val right = swipeRefreshLayout.getWidth()
-//                val bottom = getScreenHeight()
-//                swipeRefreshLayout.layout(left, top, right, bottom)
-//                listView.layout(left, top, right, bottom)
-//            }
-//            override fun onAnimationRepeat(animation: Animator) {
-//            }
-//            override fun onAnimationCancel(animation: Animator) {
-//            }
-//            override fun onAnimationStart(animation: Animator) {
-//            }
-//        })
-//        val lp = swipeRefreshLayout.getLayoutParams() as RelativeLayout.LayoutParams
-//        lp.height = (-toTranslationY + getScreenHeight() + lp.topMargin).toInt()
-//        swipeRefreshLayout.setLayoutParams(lp)
-//        swipeRefreshLayout.post {
-//            swipeRefreshLayout.requestLayout()
-//            val lp = swipeRefreshLayout.getLayoutParams() as RelativeLayout.LayoutParams
-//            Log.e("ssheight", "" + lp.height)
-//            Log.e("sstop", "" + swipeRefreshLayout.getTop())
-//        }
         animator.start()
 
     }

@@ -10,15 +10,15 @@ import javax.inject.Inject
  * Created by kgmyshin on 2015/05/03.
  */
 public class ArticlesPresenter(
-        val articlesFragment : ArticlesFragment
+        val articlesFragment: ArticlesFragment
 ) : Presenter {
 
     var next_page = 1
 
-    var getArticlesUseCase : GetArticlesUseCase? = null
-    [Inject] set
+    var getArticlesUseCase: GetArticlesUseCase? = null
+        [Inject] set
 
-    {
+    init {
         (articlesFragment.getActivity().getApplication() as Qiitlin).component?.inject(this)
     }
 

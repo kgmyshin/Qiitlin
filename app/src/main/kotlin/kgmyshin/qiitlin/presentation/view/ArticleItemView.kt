@@ -1,6 +1,7 @@
 package kgmyshin.qiitlin.presentation.view
 
 import android.content.Context
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -16,10 +17,16 @@ import kgmyshin.qiitlin.extension.str
 /**
  * Created by kgmyshin on 2015/05/03.
  */
-public class ArticleItemView(context: Context) : RelativeLayout(context) {
+public class ArticleItemView : RelativeLayout {
 
-    {
-        LayoutInflater.from(context).inflate(R.layout.view_article_item, this)
+    constructor(ctx: Context) : super(ctx) {
+    }
+
+    constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs) {
+    }
+
+    init {
+        LayoutInflater.from(getContext()).inflate(R.layout.view_article_item, this)
     }
 
     val userImageView: ImageView by bindView(R.id.user_image_view)
@@ -28,10 +35,10 @@ public class ArticleItemView(context: Context) : RelativeLayout(context) {
     val timeView: TextView by bindView(R.id.time_text_view)
 
     public fun bindArticle(article: Article) {
-        Glide.with(getContext()).load(article.user.profileImageUrl).bitmapTransform(CropCircleTransformation(Glide.get(getContext()).getBitmapPool())).into(userImageView)
+        Glide.with(getContext()).load(article.user?.profileImageUrl).bitmapTransform(CropCircleTransformation(Glide.get(getContext()).getBitmapPool())).into(userImageView)
         titleView.setText(article.title)
-        tagsView.setText(article.tags.map { it.name }.join(" "))
-        timeView.setText(article.createdAt.str())
+        tagsView.setText(article.tags?.map { it.name!! }!!.join(" "))
+        timeView.setText(article.createdAt?.str())
     }
 
 }

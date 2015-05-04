@@ -10,7 +10,7 @@ import kgmyshin.qiitlin.presentation.view.ArticleItemView
 /**
  * Created by kgmyshin on 2015/05/03.
  */
-public class ArticleAdapter(context : Context) : ArrayAdapter<Article>(context, 0) {
+public class ArticleAdapter(context: Context) : ArrayAdapter<Article>(context, 0) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         val article = getItem(position)
