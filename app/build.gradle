@@ -87,4 +87,7 @@ dependencies {
 
     // Animation
     compile 'com.nineoldandroids:library:2.4.0'
+
+    // html parser
+    compile 'org.jsoup:jsoup:1.7.3'
 }

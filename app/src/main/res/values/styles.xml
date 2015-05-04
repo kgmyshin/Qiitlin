@@ -3,6 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
     </style>
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -10,5 +12,7 @@
         <item name="colorPrimaryDark">@color/green_900</item>
         <item name="colorAccent">@color/orange_500</item>
     </style>
+
+
 
 </resources>

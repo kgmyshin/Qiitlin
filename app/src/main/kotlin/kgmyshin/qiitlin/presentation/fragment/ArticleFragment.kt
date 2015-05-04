@@ -1,13 +1,18 @@
 package kgmyshin.qiitlin.presentation.fragment
 
 import android.app.Fragment
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebView
 import butterknife.bindView
 import kgmyshin.qiitlin.R
 import kgmyshin.qiitlin.domain.entity.Article
+import kgmyshin.qiitlin.extension.loadDateWithFrame
 import kgmyshin.qiitlin.presentation.presenter.ArticlesPresenter
 import kgmyshin.qiitlin.presentation.view.ArticleItemView
 import kotlin.platform.platformStatic
@@ -18,6 +23,7 @@ import kotlin.platform.platformStatic
 public class ArticleFragment : Fragment() {
 
     val articleItemView: ArticleItemView by bindView(R.id.article_summary_view)
+    val webView: WebView by bindView(R.id.webview)
     var article: Article? = null
 
     companion object  {
@@ -38,7 +44,16 @@ public class ArticleFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        articleItemView.setTransitionName("article_summary")
-        articleItemView.bindArticle(getArguments().getParcelable(BUNDLE_ARTICLE))
+        article = getArguments().getParcelable(BUNDLE_ARTICLE)
+        if (Build.VERSION.SDK_INT >= 21) {
+            articleItemView.setTransitionName("article_summary")
+        }
+        articleItemView.bindArticle(article!!)
+        webView.setWebChromeClient(WebChromeClient());
+        webView.setVerticalScrollbarOverlay(true);
+        var settings = webView.getSettings();
+        settings.setLoadWithOverviewMode(true);
+        settings.setUseWideViewPort(true);
+        webView.loadDateWithFrame(article?.renderedBody!!)
     }
 }
