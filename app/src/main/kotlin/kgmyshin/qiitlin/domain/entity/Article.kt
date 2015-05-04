@@ -37,6 +37,7 @@ data public class Article() : Parcelable {
         title = parcel.readString()
         url = parcel.readString()
         user = parcel.readParcelable(javaClass<User>().getClassLoader())
+        createdAt = parcel.readSerializable() as Date
     }
 
     companion object {
@@ -64,6 +65,7 @@ data public class Article() : Parcelable {
         dest.writeString(title)
         dest.writeString(url)
         dest.writeParcelable(user, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
+        dest.writeSerializable(createdAt)
     }
 
 }
