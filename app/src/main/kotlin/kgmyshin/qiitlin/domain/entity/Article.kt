@@ -9,7 +9,7 @@ import java.util.Date
 /**
  * Created by kgmyshin on 2015/05/02.
  */
-data public class Article() : Parcelable {
+public class Article() : Parcelable {
 
     var id: String? = null
 

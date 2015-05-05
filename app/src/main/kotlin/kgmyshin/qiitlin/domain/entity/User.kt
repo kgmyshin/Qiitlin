@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by kgmyshin on 2015/05/02.
  */
-data public class User() : Parcelable {
+public class User() : Parcelable {
 
     var id: String? = null
 

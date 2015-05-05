@@ -6,7 +6,7 @@ import android.os.Parcelable
 /**
  * Created by kgmyshin on 2015/05/02.
  */
-data public class Comment() : Parcelable {
+public class Comment() : Parcelable {
 
     var id: String? = null
 
