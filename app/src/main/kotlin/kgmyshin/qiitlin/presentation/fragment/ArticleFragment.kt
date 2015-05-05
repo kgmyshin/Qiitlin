@@ -22,9 +22,9 @@ import kotlin.platform.platformStatic
  */
 public class ArticleFragment : Fragment() {
 
-    val articleItemView: ArticleItemView by bindView(R.id.article_summary_view)
-    val webView: WebView by bindView(R.id.webview)
-    var article: Article? = null
+    private val articleItemView: ArticleItemView by bindView(R.id.article_summary_view)
+    private val webView: WebView by bindView(R.id.webview)
+    private var article: Article? = null
 
     companion object {
         val BUNDLE_ARTICLE = "article"

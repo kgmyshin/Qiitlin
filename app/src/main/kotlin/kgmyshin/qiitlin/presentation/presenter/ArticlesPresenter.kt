@@ -13,9 +13,9 @@ public class ArticlesPresenter(
         val articlesFragment: ArticlesFragment
 ) : Presenter {
 
-    var next_page = 1
+    private var next_page = 1
 
-    var getArticlesUseCase: GetArticlesUseCase? = null
+    private var getArticlesUseCase: GetArticlesUseCase? = null
         [Inject] set
 
     init {

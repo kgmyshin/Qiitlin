@@ -29,10 +29,10 @@ public class ArticleItemView : RelativeLayout {
         LayoutInflater.from(getContext()).inflate(R.layout.view_article_item, this)
     }
 
-    val userImageView: ImageView by bindView(R.id.user_image_view)
-    val titleView: TextView by bindView(R.id.title_text_view)
-    val tagsView: TextView by bindView(R.id.tags_text_view)
-    val timeView: TextView by bindView(R.id.time_text_view)
+    private val userImageView: ImageView by bindView(R.id.user_image_view)
+    private val titleView: TextView by bindView(R.id.title_text_view)
+    private val tagsView: TextView by bindView(R.id.tags_text_view)
+    private val timeView: TextView by bindView(R.id.time_text_view)
 
     public fun bindArticle(article: Article) {
         Glide.with(getContext()).load(article.user?.profileImageUrl).bitmapTransform(CropCircleTransformation(Glide.get(getContext()).getBitmapPool())).into(userImageView)

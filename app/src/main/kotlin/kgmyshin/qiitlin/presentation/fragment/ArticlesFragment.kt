@@ -34,15 +34,15 @@ import kotlin.platform.platformStatic
  */
 public class ArticlesFragment : Fragment() {
 
-    val toolbar: Toolbar by bindView(R.id.toolbar)
-    val listView: ListView by bindView(R.id.article_list_view)
-    val swipeRefreshLayout: SwipeRefreshLayout by bindView(R.id.swipe_refresh)
+    private val toolbar: Toolbar by bindView(R.id.toolbar)
+    private val listView: ListView by bindView(R.id.article_list_view)
+    private val swipeRefreshLayout: SwipeRefreshLayout by bindView(R.id.swipe_refresh)
 
-    var adapter: ArticleAdapter? = null
-    var toolbarVisiblity = true
-    var articleActivity: ArticlesActivity? = null
+    private var adapter: ArticleAdapter? = null
+    private var toolbarVisiblity = true
+    private var articleActivity: ArticlesActivity? = null
 
-    var articlePresenter: ArticlesPresenter? = null
+    private var articlePresenter: ArticlesPresenter? = null
 
     companion object {
         platformStatic fun newInstance(): Fragment = ArticlesFragment()

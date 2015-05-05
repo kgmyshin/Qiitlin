@@ -14,8 +14,8 @@ public class GetArticlesUseCaseImpl(
         val articleRepository: ArticleRepository
 ) : GetArticlesUseCase {
 
-    val executor: ExecutorService = Executors.newSingleThreadExecutor()
-    var page: Int = 1
+    private val executor: ExecutorService = Executors.newSingleThreadExecutor()
+    private var page: Int = 1
 
     override fun execute(page: Int) {
         this.page = page
