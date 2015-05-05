@@ -18,11 +18,12 @@ public class ArticleActivity : AppCompatActivity() {
 
     companion object {
         val INTENT_EXTRA_ARTICLE = "article"
-        platformStatic fun start(context: Context, article: Article, options:Bundle) {
+        platformStatic fun start(context: Context, article: Article, options: Bundle) {
             val intent = Intent(context, javaClass<ArticleActivity>())
             intent.putExtra(INTENT_EXTRA_ARTICLE, article)
             context.startActivity(intent, options)
         }
+
         platformStatic fun start(context: Context, article: Article) {
             val intent = Intent(context, javaClass<ArticleActivity>())
             intent.putExtra(INTENT_EXTRA_ARTICLE, article)

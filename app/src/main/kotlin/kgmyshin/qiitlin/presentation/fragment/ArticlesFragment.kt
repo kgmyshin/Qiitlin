@@ -91,10 +91,11 @@ public class ArticlesFragment : Fragment() {
                 }
                 lastPos = firstVisibleItem
             }
+
             override fun onScrollStateChanged(absListView: AbsListView, i: Int) {
             }
         })
-        listView.setOnItemClickListener { (adapterView, view, i, l) ->  articleActivity?.moveArticle(view, adapter!!.getItem(i))  }
+        listView.setOnItemClickListener {(adapterView, view, i, l) -> articleActivity?.moveArticle(view, adapter!!.getItem(i)) }
         swipeRefreshLayout.setColorSchemeResources(R.color.blue_500, R.color.yellow_500, R.color.red_500);
         swipeRefreshLayout.setOnRefreshListener { articlePresenter?.onRefresh() }
     }
@@ -134,7 +135,7 @@ public class ArticlesFragment : Fragment() {
         }
         val animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(toolbar), toTranslationY).setDuration(200)
         animator.addUpdateListener {
-            animation:ValueAnimator ->
+            animation: ValueAnimator ->
             val translationY = animation.getAnimatedValue() as Float
             ViewHelper.setTranslationY(toolbar, translationY)
             ViewHelper.setTranslationY(swipeRefreshLayout, translationY)
@@ -146,7 +147,7 @@ public class ArticlesFragment : Fragment() {
 
     }
 
-    private fun getScreenHeight() : Int {
+    private fun getScreenHeight(): Int {
         val activity = getActivity();
         if (activity == null) {
             return 0;
@@ -154,7 +155,7 @@ public class ArticlesFragment : Fragment() {
         return activity.findViewById(android.R.id.content).getHeight();
     }
 
-    private fun updateToolbarVisibility(state:ScrollState) {
+    private fun updateToolbarVisibility(state: ScrollState) {
         if (state == ScrollState.Up) {
             if (toolbarVisiblity) {
                 hideToolbar();

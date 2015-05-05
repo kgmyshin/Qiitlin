@@ -23,8 +23,7 @@
         android:layout_marginTop="@dimen/three_line_list_item_text_margin_top"
         android:layout_marginRight="@dimen/three_line_list_item_text_margin_right"
         android:textSize="@dimen/three_line_list_item_primary_font_size"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:textColor="@color/text"
         />
 
     <TextView
@@ -36,7 +35,7 @@
         android:layout_marginRight="@dimen/three_line_list_item_text_margin_right"
         android:textSize="@dimen/three_line_list_item_font_size"
         android:layout_below="@+id/title_text_view"
-        android:textColor="@color/black"
+        android:textColor="@color/secondary_text"
         />
 
     <TextView
@@ -49,7 +48,7 @@
         android:layout_marginBottom="@dimen/three_line_list_item_text_margin_bottom"
         android:textSize="@dimen/three_line_list_item_small_font_size"
         android:layout_below="@+id/tags_text_view"
-        android:textColor="@color/black"
+        android:textColor="@color/hint_text"
         />
 
     <View

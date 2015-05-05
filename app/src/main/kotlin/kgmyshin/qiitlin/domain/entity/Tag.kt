@@ -9,6 +9,7 @@ import android.os.Parcelable
 data public class Tag() : Parcelable {
 
     var id: String? = null
+
     var name: String? = null
 
     constructor(parcelIn: Parcel) : this() {

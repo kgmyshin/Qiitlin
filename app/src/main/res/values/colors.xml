@@ -10,4 +10,8 @@
     <color name="white">#FFF</color>
     <color name="black">#000</color>
 
+    <color name="text">#000000</color>
+    <color name="secondary_text">#8A000000</color>
+    <color name="hint_text">#42000000</color>
+
 </resources>

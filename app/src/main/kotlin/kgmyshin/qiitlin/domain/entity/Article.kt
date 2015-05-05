@@ -15,7 +15,7 @@ data public class Article() : Parcelable {
 
     var body: String? = null
 
-    SerializedName("rendered_body")
+    [SerializedName("rendered_body")]
     var renderedBody: String? = null
 
     var tags: ArrayList<Tag>? = null
@@ -26,7 +26,7 @@ data public class Article() : Parcelable {
 
     var user: User? = null
 
-    SerializedName("created_at")
+    [SerializedName("created_at")]
     var createdAt: Date? = null
 
     constructor(parcel: Parcel) : this() {
@@ -61,7 +61,7 @@ data public class Article() : Parcelable {
         dest.writeString(id)
         dest.writeString(body)
         dest.writeString(renderedBody)
-        dest.writeParcelableArray(Array(tags!!.size(), { it -> tags?.get(it)}), Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
+        dest.writeParcelableArray(Array(tags!!.size(), { it -> tags?.get(it) }), Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
         dest.writeString(title)
         dest.writeString(url)
         dest.writeParcelable(user, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)

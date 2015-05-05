@@ -14,13 +14,13 @@ public class ApiClient {
         val BASE_URL = "http://qiita.com/api/v2"
     }
 
-    protected fun getService<T>(cls: java.lang.Class<T>) : T {
+    protected fun getService<T>(cls: java.lang.Class<T>): T {
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
         val restAdapter = RestAdapter.Builder().setEndpoint(BASE_URL).setConverter(GsonConverter(gson)).build()
         return restAdapter.create(cls)
     }
 
-    public fun getQiitaApi() : QiitaApi {
+    public fun getQiitaApi(): QiitaApi {
         return getService(javaClass<QiitaApi>())
     }
 

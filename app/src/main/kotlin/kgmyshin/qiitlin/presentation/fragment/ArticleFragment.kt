@@ -26,7 +26,7 @@ public class ArticleFragment : Fragment() {
     val webView: WebView by bindView(R.id.webview)
     var article: Article? = null
 
-    companion object  {
+    companion object {
         val BUNDLE_ARTICLE = "article"
         platformStatic fun newInstance(article: Article): Fragment {
             val fragment = ArticleFragment()

@@ -16,12 +16,12 @@ import java.util.Date
 /**
  * Created by kgmyshin on 2015/05/03.
  */
-fun Date.str() : String {
+fun Date.str(): String {
     val sdf = SimpleDateFormat("MM/dd HH:mm");
     return sdf.format(this)
 }
 
-fun Context.readAssetFile(path: String) : String {
+fun Context.readAssetFile(path: String): String {
     val assetManager: AssetManager = this.getResources().getAssets()
     val sb: StringBuilder = StringBuilder()
     val input: InputStream = assetManager.open(path)
@@ -39,10 +39,9 @@ fun Context.readAssetFile(path: String) : String {
     return sb.toString()
 }
 
-fun WebView.loadDateWithFrame(body:String) {
+fun WebView.loadDateWithFrame(body: String) {
     val wrap: String = this.getContext().readAssetFile("html/article.html")
     val doc: Document = Jsoup.parse(wrap)
-    val org = doc.outerHtml()
     val elem: Element = doc.getElementById("content")
     elem.append(body)
     val html = doc.outerHtml()

@@ -11,13 +11,13 @@ import java.util.concurrent.Executors
  * Created by kgmyshin on 2015/05/02.
  */
 public class GetArticlesUseCaseImpl(
-        val articleRepository : ArticleRepository
+        val articleRepository: ArticleRepository
 ) : GetArticlesUseCase {
 
-    val executor : ExecutorService = Executors.newSingleThreadExecutor()
-    var page : Int = 1
+    val executor: ExecutorService = Executors.newSingleThreadExecutor()
+    var page: Int = 1
 
-    override fun execute(page:Int) {
+    override fun execute(page: Int) {
         this.page = page
         executor.submit(this)
     }

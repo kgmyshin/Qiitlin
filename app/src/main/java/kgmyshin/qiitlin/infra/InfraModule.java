@@ -4,7 +4,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import kgmyshin.qiitlin.domain.entity.Article;
 import kgmyshin.qiitlin.domain.repository.ArticleRepository;
 import kgmyshin.qiitlin.domain.repository.CommentRepository;
 import kgmyshin.qiitlin.domain.repository.TagRepository;

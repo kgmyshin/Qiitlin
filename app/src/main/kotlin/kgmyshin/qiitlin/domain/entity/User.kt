@@ -10,9 +10,12 @@ import com.google.gson.annotations.SerializedName
 data public class User() : Parcelable {
 
     var id: String? = null
+
     var name: String? = null
+
     var description: String? = null
-    SerializedName("profile_image_url")
+
+    [SerializedName("profile_image_url")]
     var profileImageUrl: String? = null
 
     constructor(parcelIn: Parcel) : this() {
@@ -27,6 +30,7 @@ data public class User() : Parcelable {
             override fun createFromParcel(parcel: Parcel): User {
                 return User(parcel)
             }
+
             override fun newArray(size: Int): Array<User> {
                 return Array<User>(size, { i -> User() })
             }
