@@ -15,7 +15,7 @@ public class ArticlesPresenter(
 
     private var next_page = 1
 
-    private var getArticlesUseCase: GetArticlesUseCase? = null
+    var getArticlesUseCase: GetArticlesUseCase? = null
         [Inject] set
 
     init {
