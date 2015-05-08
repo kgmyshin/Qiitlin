@@ -16,7 +16,11 @@ public class ApiClient {
 
     protected fun getService<T>(cls: java.lang.Class<T>): T {
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-        val restAdapter = RestAdapter.Builder().setEndpoint(BASE_URL).setConverter(GsonConverter(gson)).build()
+        val restAdapter =
+                RestAdapter.Builder()
+                .setEndpoint(BASE_URL)
+                .setConverter(GsonConverter(gson))
+                .build()
         return restAdapter.create(cls)
     }
 

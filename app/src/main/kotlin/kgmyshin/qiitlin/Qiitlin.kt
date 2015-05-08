@@ -11,6 +11,7 @@ public class Qiitlin : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        Initializer.init(this)
         component = createAppComponent()
     }
 

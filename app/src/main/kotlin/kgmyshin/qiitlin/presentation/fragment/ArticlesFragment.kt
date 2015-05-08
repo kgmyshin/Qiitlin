@@ -65,7 +65,6 @@ public class ArticlesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         toolbar.setTitle(R.string.app_name)
         //        toolbar.setNavigationIcon(...)
         //        toolbar.setNavigationOnClickListener {...}

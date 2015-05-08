@@ -10,8 +10,10 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import butterknife.bindView
+import de.greenrobot.event.EventBus
 import kgmyshin.qiitlin.R
 import kgmyshin.qiitlin.domain.entity.Article
+import kgmyshin.qiitlin.domain.usecase.GetArticlesUseCase
 import kgmyshin.qiitlin.extension.loadDateWithFrame
 import kgmyshin.qiitlin.presentation.presenter.ArticlesPresenter
 import kgmyshin.qiitlin.presentation.view.ArticleItemView
